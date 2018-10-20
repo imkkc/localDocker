@@ -1,0 +1,39 @@
+version: '3'
+services:
+    nginx:
+        build: ./images/nginx
+        depends_on:
+          - php7
+          - mysql
+          - redis
+        ports:
+            - "81:80"
+        volumes:
+            - ./logs/nginx:/localdocker/log/nginx
+        container_name: localdocker_nginx
+
+    php7:
+        build: ./images/php71
+        volumes:
+            - ~/PhpWebRoot/gaming-venue-center:/www/venue
+            - ~/PhpWebRoot/pizza:/www/pizza
+            - ./logs/php71:/localdocker/log/php71
+            - ./logs/monolog:/localdocker/log/monolog
+        container_name: localdocker_php_7.1.13
+
+    mysql:
+        build: ./images/mysql56
+        ports:
+            - "3307:3306"
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+        container_name: localdocker_mysql_5.6
+
+    redis:
+        build: ./images/redis
+        ports:
+          - "6380:6379"
+        container_name: localdocker_redis
+
