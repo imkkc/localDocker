@@ -19,15 +19,26 @@ Zend Extension Build //API320160303,NTS 或者是API320160303 TS,VC14
 PHP Extension Build  //API320160303,NTS 或者是API320160303 TS,VC14
 
 然后去扩展包官方下载列表查看：
+
 各种扩展的版本适合php7.1还是7.2，以及与phpinfo里对应的NTS还是VC，选择适合的扩展版本号
 ts是线程安全的  nts是非线程安全的，根据自已的php 是ts还是nts来进行选择
+
 以redis为例：
+
 https://windows.php.net/downloads/pecl/releases/redis/5.1.1/
+
 11/13/2019 12:34 AM       583236 php_redis-5.1.1-7.1-nts-vc14-x86.zip
+
 11/13/2019 12:28 AM       605068 php_redis-5.1.1-7.1-ts-vc14-x64.zip
+
 11/12/2019 11:51 PM       604661 php_redis-5.1.1-7.2-nts-vc15-x64.zip
+
 11/13/2019 12:09 AM       586675 php_redis-5.1.1-7.2-nts-vc15-x86.zip
+
 其他的类似，可以去看看
+
 https://pecl.php.net/package/swoole
+
 https://pecl.php.net/package/yaf
+
 http://pecl.php.net/package/amqp
