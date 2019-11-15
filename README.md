@@ -4,7 +4,11 @@ pizza dinner room
 记录一些docker-compose的使用方法
 
 在写Dockerfile失败，最后遇到 returned a non-zero code: 100，报这个错误是因为在install之前没有update
-而遇到returned a non-zero code: 1，这个报错情况 多是docker-php-ext-install安装重复，我在安装 
+而遇到returned a non-zero code: 1，这个报错情况 多是docker-php-ext-install安装重复，
+小插曲经历：
+我在安装扩展amqp的时候，docker-php-ext-install依赖包rabbitmq-c，
+但是我在前面有 apt-get update && apt-get install librabbitmq-dev 
+导致returned a non-zero code: 1频繁出现，最后我把rabbitmq-c命令拿掉就安装成功了
 
 秒懂Docker中安装扩展PHP，这篇文章写的不错，也可以看看作者的其他文章 
 https://www.linuxprobe.com/docker-php.html
