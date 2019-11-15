@@ -15,8 +15,9 @@ https://www.cnblogs.com/yinguohai/p/11329273.html
 当不知道php7.1、 php7.2、 php7.3、 php7.4 好像快有php8.0 这些php对应yaf、redis、amqp等扩展需要安装什么版本时
 
 那就先根据phpinfo内容查看下：
-Zend Extension Build //API320160303,NTS 或者是API320160303 TS,VC14
-PHP Extension Build  //API320160303,NTS 或者是API320160303 TS,VC14
+Zend Extension Build 、PHP Extension Build
+
+看这两项是API320160303,NTS 或者是 API320160303 TS,VC14
 
 然后去扩展包官方下载列表查看：
 
