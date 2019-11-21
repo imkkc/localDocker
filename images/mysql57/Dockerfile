@@ -1,4 +1,4 @@
-FROM mysql:5.6
+FROM mysql:5.7
 
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
