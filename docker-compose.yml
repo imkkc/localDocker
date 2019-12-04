@@ -10,7 +10,8 @@ services:
             - "80:80"
         volumes:
             - ./logs/nginx:/localdocker/log/nginx
-          #  - ~/PhpWebRoot/pizza:/www/pizza
+            #一开始把这里注释掉了，结果项目里的静态资源css与img访问不到，但是php程序是可以正常执行的，因为php在php的容器里
+            - ~/PhpWebRoot/pizza:/www/pizza
         container_name: localdocker_nginx
 
     php7:
