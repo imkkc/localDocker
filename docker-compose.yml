@@ -6,6 +6,7 @@ services:
           - php7
           - mysql
           - redis
+          - memcached
         ports:
             - "80:80"
         volumes:
@@ -13,7 +14,6 @@ services:
             #一开始把这里注释掉了，结果项目里的静态资源css与img访问不到，但是php程序是可以正常执行的，因为php在php的容器里
             - ~/PhpWebRoot/pizza:/www/pizza
         container_name: localdocker_nginx
-
     php7:
         build: ./images/php7
         volumes:
@@ -23,7 +23,6 @@ services:
             #本地开发可以把日志映射项目里
             #- ~/PhpWebRoot/pizza/logs/php7:/localdocker/log/php7
         container_name: localdocker_php_7
-
     mysql:
         build: ./images/mysql57
         ports:
@@ -33,11 +32,15 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: 123456
         container_name: localdocker_mysql_5.7
-
     redis:
         build: ./images/redis
         ports:
           - "6380:6379"
         container_name: localdocker_redis
+    memcached:
+        build: ./images/memcached
+        ports:
+            - "11211:11211"
+        container_name: localdocker_memcached
 
 
