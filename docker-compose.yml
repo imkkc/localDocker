@@ -42,5 +42,20 @@ services:
         ports:
             - "11211:11211"
         container_name: localdocker_memcached
+    rabbitmq:
+        build: ./images/rabbitmq
+        container_name: localdocker_rabbitmq
+        environment:
+            - RABBITMQ_DEFAULT_USER=pizza
+            - RABBITMQ_DEFAULT_PASS=pizza
+        restart: always
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "200k"
+                max-file: "10"
 
 
