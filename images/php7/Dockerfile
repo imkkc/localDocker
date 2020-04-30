@@ -1,5 +1,9 @@
 #FROM php:7.1.13-fpm
 FROM php:7.3-fpm
+#SHA2密码验证引起的PHP错误：SQLSTATE[HY000] [2054] The server requested authentication method unknown to the client
+#忽然注意到的情况：
+#2018/7/19至2018/9/13之间发布的7.1.20、7.1.21、7.1.22和7.2.8、7.2.9、7.2.10这六个版本提供的对caching_sha2_password插件的支持，
+#后续的版本中又取消了相关支持，不知道是因为什么。按照PHP官方的文档，目前似乎只有xdevapi可以支持caching_sha2_password插件。
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 #这个路径在php-ini里先设置好，与docker-composer一致
 #error_log = /localdocker/log/php7/php_errors.log
