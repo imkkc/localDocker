@@ -13,27 +13,32 @@ services:
             - ./logs/nginx:/localdocker/log/nginx
             #一开始把这里注释掉了，结果项目里的静态资源css与img访问不到，但是php程序是可以正常执行的，因为php在php的容器里
             - ~/PhpWebRoot/pizza:/www/pizza
+            - ~/PhpWebRoot/xbwzb:/www/xbwzb
             - ~/PhpWebRoot/phpmyadmin:/www/phpmyadmin
+            - ~/PhpWebRoot/swoole:/www/swoole
         container_name: localdocker_nginx
+        restart: always
     php7:
         build: ./images/php7
         volumes:
             #项目代码和日志目录
             - ~/PhpWebRoot/pizza:/www/pizza
+            - ~/PhpWebRoot/xbwzb:/www/xbwzb
             - ~/PhpWebRoot/phpmyadmin:/www/phpmyadmin
+            - ~/PhpWebRoot/swoole:/www/swoole
             - ./logs/php7:/localdocker/log/php7
             #本地开发可以把日志映射项目里
             #- ~/PhpWebRoot/pizza/logs/php7:/localdocker/log/php7
         container_name: localdocker_php_7
     mysql:
-        build: ./images/mysql8
+        build: ./images/mysql57
         ports:
             - "3307:3306"
         volumes:
             - ./data/mysql:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: 123456
-        container_name: localdocker_mysql_8
+        container_name: localdocker_mysql
     redis:
         build: ./images/redis
         ports:
@@ -59,5 +64,13 @@ services:
             options:
                 max-size: "200k"
                 max-file: "10"
-
+    swoole:
+        build: ./images/swoole
+        volumes:
+          - ./logs/swoole:/var/log/supervisor
+        container_name: localdocker_swoole
+        restart: always
+        ports:
+            - "9501:9501"
+            - "9502:9502"
 

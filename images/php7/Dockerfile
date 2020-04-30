@@ -16,6 +16,11 @@ ADD php-fpm.conf /usr/local/etc/php-fpm.conf
     # 相关依赖必须手动安装
 RUN  apt-get update && apt-get install -y \
     apt-utils \
+    net-tools \
+    iproute2 \
+    telnet \
+    procps \
+    netcat \
     wget \
     vim \
     zip \
@@ -54,12 +59,13 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*  && \
     #php从7.2开始不再在源码里支持mcrypt扩展而转到pecl方式支持,
     pecl install mcrypt-1.0.2 && \
     pecl install memcached && \
-    pecl install xdebug && \
+#    xdebug会与swoole冲突
+#    pecl install xdebug && \
     pecl install redis-5.1.1 && \
     pecl install amqp-1.9.4 && \
     pecl install yaf-3.0.8 && \
-    pecl install swoole-4.4.12 && \
-    docker-php-ext-enable redis yaf amqp memcached xdebug mcrypt swoole
+    pecl install swoole-4.5.0 && \
+    docker-php-ext-enable redis yaf amqp memcached mcrypt swoole
 #RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');"
 #RUN php -r "if (hash_file('sha384', 'composer-setup.php') === 'a5c698ffe4b8e849a443b120cd5ba38043260d5c4023dbf93e1558871f1f07f58274fc6f4c93bcfd858c6bd0775cd8d1') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 #RUN php -r composer-setup.php --install-dir=/usr/local/bin --filename=composer
@@ -70,6 +76,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*  && \
 #原本以为下面这个只是下载composer.phar还没有安装，结果进入容器里composer -v竟然有提示Composer version 1.9.1 安装成功
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
+RUN chmod -R 777 /usr/local/bin/composer
 WORKDIR /www
 #将www-data用户的uid改成1000
 RUN usermod -u 1000 www-data
