@@ -30,6 +30,9 @@ services:
             #本地开发可以把日志映射项目里
             #- ~/PhpWebRoot/pizza/logs/php7:/localdocker/log/php7
         container_name: localdocker_php_7
+        ports:
+            - "9002:9002"
+            - "8812:8812"
     mysql:
         build: ./images/mysql57
         ports:
