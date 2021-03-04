@@ -14,7 +14,8 @@ services:
             #一开始把这里注释掉了，结果项目里的静态资源css与img访问不到，但是php程序是可以正常执行的，因为php在php的容器里
             - ~/PhpWebRoot/pizza:/www/pizza
             - ~/PhpWebRoot/xbwzb:/www/xbwzb
-            - ~/PhpWebRoot/phpmyadmin:/www/phpmyadmin
+            - ~/PhpWebRoot/hk:/www/hk
+            - ~/PhpWebRoot/dentalclub:/www/dentalclub
             - ~/PhpWebRoot/swoole:/www/swoole
         container_name: localdocker_nginx
         restart: always
@@ -24,15 +25,18 @@ services:
             #项目代码和日志目录
             - ~/PhpWebRoot/pizza:/www/pizza
             - ~/PhpWebRoot/xbwzb:/www/xbwzb
-            - ~/PhpWebRoot/phpmyadmin:/www/phpmyadmin
+            - ~/PhpWebRoot/hk:/www/hk
+            - ~/PhpWebRoot/dentalclub:/www/dentalclub
             - ~/PhpWebRoot/swoole:/www/swoole
             - ./logs/php7:/localdocker/log/php7
+            - ./images/php7/php.ini:/usr/local/etc/php/php.ini
             #本地开发可以把日志映射项目里
             #- ~/PhpWebRoot/pizza/logs/php7:/localdocker/log/php7
         container_name: localdocker_php_7
         ports:
             - "9002:9002"
             - "8812:8812"
+        restart: always
     mysql:
         build: ./images/mysql57
         ports:
@@ -42,38 +46,41 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: 123456
         container_name: localdocker_mysql
+        restart: always
     redis:
         build: ./images/redis
         ports:
           - "6380:6379"
         container_name: localdocker_redis
+        restart: always
     memcached:
         build: ./images/memcached
         ports:
             - "11211:11211"
         container_name: localdocker_memcached
-    rabbitmq:
-        build: ./images/rabbitmq
-        container_name: localdocker_rabbitmq
-        environment:
-            - RABBITMQ_DEFAULT_USER=pizza
-            - RABBITMQ_DEFAULT_PASS=pizza
         restart: always
-        ports:
-            - "15672:15672"
-            - "5672:5672"
-        logging:
-            driver: "json-file"
-            options:
-                max-size: "200k"
-                max-file: "10"
-    swoole:
-        build: ./images/swoole
-        volumes:
-          - ./logs/swoole:/var/log/supervisor
-        container_name: localdocker_swoole
-        restart: always
-        ports:
-            - "9501:9501"
-            - "9502:9502"
+#    rabbitmq:
+#        build: ./images/rabbitmq
+#        container_name: localdocker_rabbitmq
+#        environment:
+#            - RABBITMQ_DEFAULT_USER=pizza
+#            - RABBITMQ_DEFAULT_PASS=pizza
+#        restart: always
+#        ports:
+#            - "15672:15672"
+#            - "5672:5672"
+#        logging:
+#            driver: "json-file"
+#            options:
+#                max-size: "200k"
+#                max-file: "10"
+#    swoole:
+#        build: ./images/swoole
+#        volumes:
+#          - ./logs/swoole:/var/log/supervisor
+#        container_name: localdocker_swoole
+#        restart: always
+#        ports:
+#            - "9501:9501"
+#            - "9502:9502"
 

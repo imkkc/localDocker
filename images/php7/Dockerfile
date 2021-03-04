@@ -27,7 +27,8 @@ RUN  apt-get update && apt-get install -y \
     netcat \
     wget \
     vim \
-    zip \
+    #安装zip扩展必须先装libzip-dev composer与phpexcel等都会用到zip
+    libzip-dev \
     libbz2-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
@@ -52,6 +53,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*  && \
     docker-php-ext-install mbstring && \
     docker-php-ext-install exif && \
     docker-php-ext-install bz2 && \
+    docker-php-ext-install zip && \
+#    docker-php-ext-install pdo_oci && \
     docker-php-ext-install bcmath && \
     docker-php-ext-install gettext && \
     docker-php-ext-install mysqli && \
@@ -67,7 +70,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*  && \
 #    pecl install xdebug && \
     pecl install redis-5.1.1 && \
     pecl install amqp-1.9.4 && \
-    pecl install yaf-3.0.8 && \
+    pecl install yaf-3.3.1 && \
     pecl install swoole-4.5.0 && \
     docker-php-ext-enable redis yaf amqp memcached mcrypt swoole
 #RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');"
