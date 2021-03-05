@@ -15,7 +15,7 @@ services:
             - ~/PhpWebRoot/pizza:/www/pizza
             - ~/PhpWebRoot/xbwzb:/www/xbwzb
             - ~/PhpWebRoot/hk:/www/hk
-            - ~/PhpWebRoot/dentalclub:/www/dentalclub
+            - ~/PhpWebRoot/dtclub:/www/dentalclub
             - ~/PhpWebRoot/swoole:/www/swoole
         container_name: localdocker_nginx
         restart: always
@@ -26,7 +26,7 @@ services:
             - ~/PhpWebRoot/pizza:/www/pizza
             - ~/PhpWebRoot/xbwzb:/www/xbwzb
             - ~/PhpWebRoot/hk:/www/hk
-            - ~/PhpWebRoot/dentalclub:/www/dentalclub
+            - ~/PhpWebRoot/dtclub:/www/dentalclub
             - ~/PhpWebRoot/swoole:/www/swoole
             - ./logs/php7:/localdocker/log/php7
             - ./images/php7/php.ini:/usr/local/etc/php/php.ini
