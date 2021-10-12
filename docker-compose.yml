@@ -13,9 +13,8 @@ services:
             - ./logs/nginx:/localdocker/log/nginx
             #一开始把这里注释掉了，结果项目里的静态资源css与img访问不到，但是php程序是可以正常执行的，因为php在php的容器里
             - ~/PhpWebRoot/pizza:/www/pizza
-            - ~/PhpWebRoot/hk:/www/hk
+            - ~/PhpWebRoot/hk-api:/www/hk
            # - ~/PhpWebRoot/dclub:/www/dentalclub
-            - ~/PhpWebRoot/swoole:/www/swoole
         container_name: localdocker_nginx
         restart: always
     php7:
@@ -25,24 +24,30 @@ services:
         volumes:
             #项目代码和日志目录
             - ~/PhpWebRoot/pizza:/www/pizza
-            - ~/PhpWebRoot/hk:/www/hk
+            - ~/PhpWebRoot/hk-api:/www/hk
            # - ~/PhpWebRoot/dclub:/www/dentalclub
             - ~/PhpWebRoot/swoole:/www/swoole
             - ./logs/php7:/localdocker/log/php7
+            - ./images/php7/php.ini:/usr/local/etc/php/php.ini
+            - ./images/php7/php-fpm.conf:/usr/local/etc/php-fpm.conf
             #本地开发可以把日志映射项目里
             #- ~/PhpWebRoot/pizza/logs/php7:/localdocker/log/php7
         container_name: localdocker_php_7
         ports:
             - "9002:9002"
+            - "9501:9501"
+            - "9502:9502"
         restart: always
     mysql:
         build: ./images/mysql57
+        platform: linux/x86_64
         ports:
             - "3307:3306"
         volumes:
             - ./data/mysql:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: 123456
+            TZ: "Asia/Shanghai"
         container_name: localdocker_mysql
         restart: always
     redis:
@@ -72,13 +77,4 @@ services:
             options:
                 max-size: "200k"
                 max-file: "10"
-    swoole:
-        build: ./images/swoole
-        volumes:
-          - ./logs/swoole:/var/log/supervisor
-        container_name: localdocker_swoole
-        restart: always
-        ports:
-            - "9501:9501"
-            - "9502:9502"
 
